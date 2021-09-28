@@ -1,35 +1,35 @@
 {
-  "name": "plug-pag-service-pdv",
-  "title": "React Native Plug Pag Service PDV365",
-  "version": "0.11.6",
-  "description": "React Native Plug Pag Service Plugin for PDV365",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rafaelmenon/plug-pag-service-pdv.git",
-    "baseUrl": "https://github.com/rafaelmenon/plug-pag-service-pdv"
-  },
-  "keywords": [
-    "react-native",
-    "plugpag",
-    "plugin"
-  ],
-  "author": {
-    "name": "Rafael Menon",
-    "email": "rafael13rodrigo@gmail.com"
-  },
-  "license": "MIT",
-  "licenseFilename": "LICENSE",
-  "readmeFilename": "README.md",
-  "peerDependencies": {
-    "react": "^16.8.1",
-    "react-native": ">=0.59.0-rc.0 <1.0.x"
-  },
-  "devDependencies": {
-    "react": "^16.8.3",
-    "react-native": "^0.59.10"
-  }
+	"name": "plug-pag-service-pdv365",
+	"title": "React Native Plug Pag Service PDV365",
+	"version": "0.11.6",
+	"description": "React Native Plug Pag Service Plugin for PDV365",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gitdev365/plug-pag-service-pdv365.git",
+		"baseUrl": "https://github.com/gitdev365/plug-pag-service-pdv365"
+	},
+	"keywords": [
+		"react-native",
+		"plugpag",
+		"plugin"
+	],
+	"author": {
+		"name": "PDV365",
+		"email": "dev@pdv365.com.br"
+	},
+	"license": "MIT",
+	"licenseFilename": "LICENSE",
+	"readmeFilename": "README.md",
+	"peerDependencies": {
+		"react": "^16.8.1",
+		"react-native": ">=0.59.0-rc.0 <1.0.x"
+	},
+	"devDependencies": {
+		"react": "^16.8.3",
+		"react-native": "^0.59.10"
+	}
 }
