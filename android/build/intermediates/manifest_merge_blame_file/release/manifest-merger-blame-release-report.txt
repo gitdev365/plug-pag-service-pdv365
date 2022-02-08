@@ -1,0 +1,32 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="com.reactlibrary" >
+5
+6    <uses-sdk
+6-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:9:5-73
+7        android:minSdkVersion="21"
+7-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:9:5-73
+8        android:targetSdkVersion="30"
+8-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:9:5-73
+9        tools:overrideLibrary="com.google.zxing.client.android" />
+9-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:9:15-70
+10
+11    <uses-permission android:name="android.permission.BLUETOOTH" />
+11-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:4:5-68
+11-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:4:22-65
+12    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+12-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:5:5-74
+12-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:5:22-71
+13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+13-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:6:5-79
+13-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:6:22-76
+14    <uses-permission android:name="br.com.uol.pagseguro.permission.MANAGE_PAYMENTS" />
+14-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:7:5-86
+14-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:7:22-84
+15
+16    <application android:hardwareAccelerated="true" />
+16-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:8:5-55
+16-->/home/diego/Documentos/GitHub/pdv365-v3-pos-android/node_modules/plug-pag-service-pdv365/android/src/main/AndroidManifest.xml:8:18-52
+17
+18</manifest>

@@ -1,0 +1,30 @@
+com/reactlibrary/PlugPagAppIdentificationWrapper.java
+ com.reactlibrary.PlugPagAppIdentificationWrapper
+com/reactlibrary/PlugPagWrapper.java
+ com.reactlibrary.PlugPagWrapper
+com/reactlibrary/BuildConfig.java
+ com.reactlibrary.BuildConfig
+com/reactlibrary/JsonParseUtils.java
+ com.reactlibrary.JsonParseUtils
+com/reactlibrary/PlugPagServiceModule.java
+ com.reactlibrary.PlugPagServiceModule
+ com.reactlibrary.PlugPagServiceModule$1
+ com.reactlibrary.PlugPagServiceModule$10
+ com.reactlibrary.PlugPagServiceModule$11
+ com.reactlibrary.PlugPagServiceModule$11$1
+ com.reactlibrary.PlugPagServiceModule$2
+ com.reactlibrary.PlugPagServiceModule$2$1
+ com.reactlibrary.PlugPagServiceModule$3
+ com.reactlibrary.PlugPagServiceModule$3$1
+ com.reactlibrary.PlugPagServiceModule$4
+ com.reactlibrary.PlugPagServiceModule$4$1
+ com.reactlibrary.PlugPagServiceModule$5
+ com.reactlibrary.PlugPagServiceModule$6
+ com.reactlibrary.PlugPagServiceModule$7
+ com.reactlibrary.PlugPagServiceModule$8
+ com.reactlibrary.PlugPagServiceModule$9
+ com.reactlibrary.PlugPagServiceModule$ImagePiece
+ com.reactlibrary.PlugPagServiceModule$Piece
+ com.reactlibrary.PlugPagServiceModule$TextPiece
+com/reactlibrary/PlugPagServicePackage.java
+ com.reactlibrary.PlugPagServicePackage

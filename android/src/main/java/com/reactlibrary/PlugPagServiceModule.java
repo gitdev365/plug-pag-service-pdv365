@@ -227,13 +227,13 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
     }
 
     public static void initNewImage() {
-        lineSpacing = 25;
-        fontSize = 250;
+        lineSpacing = 10;
+        fontSize = 50;
         align = 0;
         sideMarginPercentage = 0;
         topMarginPercentage = 1;
         bottomMarginPercentage = 2;
-        width = 1155;
+        width = 400;
         bold = false;
         breakLineAuxString = null;
 
@@ -467,10 +467,9 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         final JSONArray products = jsonObject.getJSONArray("products");
         final Bitmap image = !jsonObject.isNull("logo_path") ? BitmapFactory.decodeFile((String) jsonObject.get("logo_path")) : null;
-        final Bitmap imageLogo = image != null ? Bitmap.createScaledBitmap(image, 1000, 400, false) : null;
+        final Bitmap imageLogo = image != null ? Bitmap.createScaledBitmap(image, 350, 150, false) : null;
         final Bitmap imageQrCode = BitmapFactory.decodeFile((String) jsonObject.get("qr_code_path"));
-        final Bitmap imageQr = Bitmap.createScaledBitmap(imageQrCode, 600, 600, false);
-
+        final Bitmap imageQr = imageQrCode != null ? Bitmap.createScaledBitmap(imageQrCode, 250, 250, false) : null;
 
         Runnable runnableTask = new Runnable() {
             @TargetApi(Build.VERSION_CODES.O)
@@ -479,32 +478,32 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                 setAppIdendification("pdv365", "0.0.1");
                 initNewImage();
                 setBold(true);
-                setFontSize(128);
+                setFontSize(40);
                 setAlign(1);
                 addImage(imageLogo);
                 for(int i = 0; i < products.length(); i++){
                     JSONObject o = null;
                     try {
                         o = products.getJSONObject(i);
-                        setFontSize(80);
+                        setFontSize(25);
                         setAlign(3);
-                        String second = !o.isNull("second_name") ? ((String) o.get("second_name")).toUpperCase()  : "";
+                        String second = !o.isNull("second_name") ? (" " + (String) o.get("second_name")).toUpperCase()  : "";
                         addTextLine((Integer) o.get("quantity") + " " + ((String) o.get("name")).toUpperCase() + second);
-                        setLineSpacing(60);
+                        setLineSpacing(12);
                         if (o.getJSONArray("additional").length() > 0) {
                             setBold(true);
-                            setFontSize(50);
-                            setLineSpacing(50);
+                            setFontSize(25);
+                            setLineSpacing(20);
                             addTextLine("ADICIONAIS");
                             JSONObject x = null;
 
                             for(int a = 0; a < o.getJSONArray("additional").length(); a++) {
                                 x = o.getJSONArray("additional").getJSONObject(a);
-                                setLineSpacing(25);
+                                setLineSpacing(12);
                                 addTextLine(+(Integer) x.get("quantity") + "    " + ((String) x.get("name")).toUpperCase() + "   " +   ((String) x.get("value")).toUpperCase());
-                                setFontSize(30);
+                                setFontSize(15);
                                 addTextLine("_____________________________________________");
-                                setFontSize(50);
+                                setFontSize(25);
                             }
                         }
                         setAlign(1);
@@ -517,15 +516,15 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
 
                 try {
                     setBold(false);
-                    setLineSpacing(60);
+                    setLineSpacing(12);
                     if (jsonObject.getJSONArray("production_products").length() > 0) {
-                        setFontSize(60);
+                        setFontSize(30);
                         addTextLine("_________________________________");
                         setBold(true);
                         addTextLine("SENHA");
-                        setFontSize(128);
+                        setFontSize(40);
                         addTextLine(((String) jsonObject.get("production_password")).toUpperCase());
-                        setFontSize(60);
+                        setFontSize(30);
                         setBold(false);
                         addTextLine("_________________________________");
                     }
@@ -536,78 +535,90 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                     }
                     if ((boolean) jsonObject.get("is_reprint") == true) {
                         setBold(true);
-                        setLineSpacing(80);
+                        setLineSpacing(30);
                         addTextLine("REIMPRESSÃO");
                     }
-                    setFontSize(128);
+                    setFontSize(40);
                     if ((boolean) jsonObject.get("is_courtesy") == false) {
                         addTextLine((String) jsonObject.get("sale_total"));
                     } else {
                         addTextLine("CORTESIA");
                     }
-                    setLineSpacing(80);
+                    setLineSpacing(30);
                     setBold(false);
-                    setFontSize(60);
+                    setFontSize(30);
                     addTextLine(((String) jsonObject.get("event_name")).toUpperCase());
-                    setLineSpacing(25);
+                    setLineSpacing(12);
                     addTextLine(((String) jsonObject.get("event_sector_name")).toUpperCase());
                     if (!jsonObject.isNull("delivery_place_name") && !jsonObject.isNull("delivery_place_type")) {
                         addTextLine(((String) jsonObject.get("delivery_place_type")).toUpperCase());
                         addTextLine(((String) jsonObject.get("delivery_place_name")).toUpperCase());
                     }
-                    setLineSpacing(80);
+
+                    if ((boolean) jsonObject.get("is_reprint") == true) {
+                        if (!jsonObject.isNull("authorizing_user_name")) {
+                            setBold(true);
+                            setLineSpacing(30);
+                            addTextLine("AUTORIZADO POR:");
+                            setLineSpacing(12);
+                            addTextLine(((String) jsonObject.get("authorizing_user_name")).toUpperCase());
+                        }
+                    }
+
+                    setLineSpacing(30);
                     if ((boolean) jsonObject.get("is_waiter_sale") == true) {
                         setBold(true);
-                        setLineSpacing(80);
+                        setLineSpacing(30);
                         addTextLine("GARÇOM");
-                        setLineSpacing(25);
+                        setLineSpacing(12);
                         addTextLine(((String) jsonObject.get("waiter_name")).toUpperCase());
                     }
                     setBold(false);
-                    setLineSpacing(80);
+                    setLineSpacing(30);
+                    setFontSize(20);
                     addTextLine(((String) jsonObject.get("operator_name") + " " + "-" + " " + (String) jsonObject.get("serial")).toUpperCase());
-                    setLineSpacing(25);
+                    setLineSpacing(12);
                     addTextLine(((String) jsonObject.get("sale_date")).toUpperCase());
-                    setLineSpacing(60);
-                    setFontSize(30);
+                    setLineSpacing(12);
+                    setFontSize(15);
                     setBold(false);
                     addTextLine("__________________________________________");
-                    setFontSize(60);
+                    setFontSize(25);
                     addTextLine("RECORTE AQUI");
-                    setFontSize(30);
+                    setFontSize(15);
                     addTextLine("__________________________________________");
 
                     if (jsonObject.getJSONArray("production_products").length() > 0) {
                         setBold(true);
-                        setFontSize(95);
-                        addImage(Bitmap.createScaledBitmap(image, 1000, 400, false));
+                        setFontSize(40);
+                        addImage(Bitmap.createScaledBitmap(image, 350, 150, false));
                         addTextLine("FICHA DE PRODUÇÃO");
-                        setFontSize(30);
+                        setFontSize(15);
                         addTextLine("__________________________________________");
-                        setLineSpacing(60);
+                        setLineSpacing(12);
 
                         for(int p = 0; p < jsonObject.getJSONArray("production_products").length(); p++){
                             JSONObject prodG = null;
                             try {
                                 prodG = jsonObject.getJSONArray("production_products").getJSONObject(p);
-                                setFontSize(80);
+                                setFontSize(25);
                                 setAlign(3);
-                                String second = !prodG.isNull("second_name") ? ((String) prodG.get("second_name")).toUpperCase()  : "";
+                                String second = !prodG.isNull("second_name") ? (" " + (String) prodG.get("second_name")).toUpperCase()  : "";
                                 addTextLine(+(Integer) prodG.get("quantity") + "    " + ((String) prodG.get("name")).toUpperCase() + second);
                                 if (prodG.getJSONArray("additional").length() > 0) {
                                     setBold(true);
-                                    setFontSize(50);
-                                    setLineSpacing(50);
+                                    setFontSize(25);
+                                    setLineSpacing(20);
                                     addTextLine("ADICIONAIS");
                                     JSONObject x = null;
 
                                     for(int a = 0; a < prodG.getJSONArray("additional").length(); a++) {
                                         x = prodG.getJSONArray("additional").getJSONObject(a);
-                                        setLineSpacing(25);
+                                        setLineSpacing(12);
                                         addTextLine(+(Integer) x.get("quantity") + "    " + ((String) x.get("name")).toUpperCase() + "   " +   ((String) x.get("value")).toUpperCase());
-                                        setFontSize(30);
+                                        setFontSize(15);
                                         addTextLine("_____________________________________________");
-                                        setFontSize(50);
+                                        setFontSize(25);
                                     }
                                 }
                                 setAlign(1);
@@ -616,40 +627,41 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                             }
                         }
 
-                        setFontSize(110);
+                        setFontSize(40);
                         if ((boolean) jsonObject.get("is_courtesy") == false) {
                             addTextLine(((String) jsonObject.get("production_total")).toUpperCase());
                         } else {
                             addTextLine("CORTESIA");
                         }
                         setBold(false);
-                        setLineSpacing(60);
-                        setFontSize(60);
+                        setLineSpacing(12);
+                        setFontSize(30);
                         addTextLine("_________________________________");
                         setBold(true);
                         addTextLine("SENHA");
-                        setFontSize(128);
+                        setFontSize(40);
                         addTextLine(((String) jsonObject.get("production_password")).toUpperCase());
-                        setFontSize(60);
+                        setFontSize(30);
                         setBold(false);
                         addTextLine("_________________________________");
-                        setFontSize(60);
+                        setFontSize(30);
                         if (!jsonObject.isNull("delivery_place_name") && !jsonObject.isNull("delivery_place_type")) {
                             addTextLine(((String) jsonObject.get("delivery_place_type")).toUpperCase());
                             addTextLine(((String) jsonObject.get("delivery_place_name")).toUpperCase());
                         }
                         setBold(false);
-                        setLineSpacing(80);
+                        setLineSpacing(30);
+                        setFontSize(20);
                         addTextLine(((String) jsonObject.get("operator_name") + " " + "-" + " " + (String) jsonObject.get("serial")).toUpperCase());
-                        setLineSpacing(25);
+                        setLineSpacing(12);
                         addTextLine(((String) jsonObject.get("sale_date")).toUpperCase());
-                        setLineSpacing(60);
-                        setFontSize(30);
+                        setLineSpacing(12);
+                        setFontSize(15);
                         setBold(false);
                         addTextLine("__________________________________________");
-                        setFontSize(60);
+                        setFontSize(25);
                         addTextLine("RECORTE AQUI");
-                        setFontSize(30);
+                        setFontSize(15);
                         addTextLine("__________________________________________");
                     }
                 } catch (JSONException e) {
@@ -684,7 +696,7 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         final JSONArray products = jsonObject.getJSONArray("products");
         final Bitmap image = !jsonObject.isNull("logo_path") ? BitmapFactory.decodeFile((String) jsonObject.get("logo_path")) : null;
-        final Bitmap imageLogo = image != null ? Bitmap.createScaledBitmap(image, 1000, 400, false) : null;
+        final Bitmap imageLogo = image != null ? Bitmap.createScaledBitmap(image, 350, 150, false) : null;
 
         Runnable runnableTask = new Runnable() {
             @TargetApi(Build.VERSION_CODES.O)
@@ -697,29 +709,29 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                     try {
                         o = products.getJSONObject(i);
                         setBold(true);
-                        setFontSize(128);
+                        setFontSize(40);
                         setAlign(1);
                         addImage(imageLogo);
                         addTextLine(((String) o.get("name")).toUpperCase());
                         if (!o.isNull("second_name")) {
-                            addTextLine(((String) o.get("second_name")).toUpperCase());
+                            addTextLine(" " + ((String) o.get("second_name")).toUpperCase());
                         }
                         if (o.getJSONArray("additional").length() > 0) {
                             setBold(true);
-                            setFontSize(50);
-                            setLineSpacing(50);
+                            setFontSize(25);
+                            setLineSpacing(20);
                             addTextLine("ADICIONAIS");
                             JSONObject x = null;
                             for(int a = 0; a < o.getJSONArray("additional").length(); a++) {
                                 x = o.getJSONArray("additional").getJSONObject(a);
-                                setLineSpacing(25);
+                                setLineSpacing(12);
                                 addTextLine(+(Integer) x.get("quantity") + "    " + ((String) x.get("name")).toUpperCase() + "   " +   ((String) x.get("value")).toUpperCase());
-                                setFontSize(30);
+                                setFontSize(15);
                                 addTextLine("___________________________________________");
-                                setFontSize(50);
+                                setFontSize(25);
                             }
                         }
-                        setFontSize(128);
+                        setFontSize(40);
                         if ((boolean) jsonObject.get("is_courtesy") == false) {
                             addTextLine(((String) o.get("final_value")).toUpperCase());
                         } else {
@@ -731,14 +743,14 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
 //                        }
                         if ((boolean) o.get("is_reprint") == true) {
                             setBold(true);
-                            setLineSpacing(80);
+                            setLineSpacing(30);
                             addTextLine("REIMPRESSÃO");
                         }
-                        setLineSpacing(80);
+                        setLineSpacing(30);
                         setBold(false);
-                        setFontSize(60);
+                        setFontSize(20);
                         addTextLine(((String) jsonObject.get("event_name")).toUpperCase());
-                        setLineSpacing(25);
+                        setLineSpacing(12);
                         addTextLine(((String) jsonObject.get("event_sector_name")).toUpperCase());
                         if (!jsonObject.isNull("delivery_place_name") && !jsonObject.isNull("delivery_place_type")) {
                             addTextLine(((String) jsonObject.get("delivery_place_type")).toUpperCase());
@@ -746,73 +758,85 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                         }
                         if ((boolean) o.get("has_production_sheet") == true) {
                             setBold(false);
-                            setLineSpacing(60);
+                            setLineSpacing(12);
                             addTextLine("_________________________________");
                             setBold(true);
                             addTextLine("SENHA");
-                            setFontSize(128);
+                            setFontSize(40);
                             addTextLine(((String) jsonObject.get("production_password")).toUpperCase());
-                            setFontSize(60);
+                            setFontSize(30);
                             setBold(false);
                             addTextLine("_________________________________");
                         }
-                        setLineSpacing(80);
+                        setLineSpacing(30);
+
+                        if ((boolean) o.get("is_reprint") == true) {
+                            if (!jsonObject.isNull("authorizing_user_name")) {
+                                setBold(true);
+                                setLineSpacing(30);
+                                addTextLine("AUTORIZADO POR:");
+                                setLineSpacing(12);
+                                addTextLine(((String) jsonObject.get("authorizing_user_name")).toUpperCase());
+                            }
+                        }
+
                         if ((boolean) jsonObject.get("is_waiter_sale") == true) {
                             setBold(true);
-                            setLineSpacing(80);
+                            setLineSpacing(30);
                             addTextLine("GARÇOM");
-                            setLineSpacing(25);
+                            setLineSpacing(12);
                             addTextLine(((String) jsonObject.get("waiter_name")).toUpperCase());
                         }
                         setBold(false);
-                        setLineSpacing(80);
+                        setLineSpacing(30);
                         addTextLine(returnNumberFi(products.length(), i + 1));
                         setBold(true);
+                        setFontSize(20);
                         addTextLine(((String) jsonObject.get("operator_name") + " " + "-" + " " + (String) jsonObject.get("serial")).toUpperCase());
-                        setLineSpacing(25);
+                        setLineSpacing(12);
                         addTextLine(((String) jsonObject.get("sale_date")).toUpperCase());
-                        setLineSpacing(60);
-                        setFontSize(30);
+                        setLineSpacing(12);
+                        setFontSize(15);
                         setBold(false);
                         addTextLine("__________________________________________");
-                        setFontSize(60);
+                        setFontSize(25);
                         addTextLine("RECORTE AQUI");
-                        setFontSize(30);
+                        setFontSize(15);
                         addTextLine("__________________________________________");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
                 setBold(true);
-                setFontSize(95);
+                setFontSize(40);
                 addImage(imageLogo);
                 addTextLine("FICHA DE PRODUÇÃO");
-                setFontSize(30);
+                setFontSize(15);
                 addTextLine("__________________________________________");
-                setLineSpacing(60);
+                setLineSpacing(12);
                 JSONObject prod = null;
                 for(int p = 0; p < products.length(); p++) {
                     try {
                         prod = jsonObject.getJSONArray("production_products").getJSONObject(p);
-                        setLineSpacing(80);
-                        setFontSize(80);
+                        setLineSpacing(30);
+                        setFontSize(25);
                         setAlign(3);
-                        String second = !prod.isNull("second_name") ? ((String) prod.get("second_name")).toUpperCase()  : "";
+                        String second = !prod.isNull("second_name") ? (" " + (String) prod.get("second_name")).toUpperCase()  : "";
                         addTextLine((Integer) prod.get("quantity") + "    " + ((String) prod.get("name")).toUpperCase() + second) ;
                         if (prod.getJSONArray("additional").length() > 0) {
                             setBold(true);
-                            setFontSize(50);
-                            setLineSpacing(50);
+                            setFontSize(25);
+                            setLineSpacing(20);
                             addTextLine("ADICIONAIS");
                             JSONObject x = null;
 
                             for(int a = 0; a < prod.getJSONArray("additional").length(); a++) {
                                 x = prod.getJSONArray("additional").getJSONObject(a);
-                                setLineSpacing(25);
+                                setLineSpacing(12);
                                 addTextLine(+(Integer) x.get("quantity") + "    " + ((String) x.get("name")).toUpperCase() + "   " +   ((String) x.get("value")).toUpperCase());
-                                setFontSize(30);
+                                setFontSize(15);
                                 addTextLine("_____________________________________________");
-                                setFontSize(50);
+                                setFontSize(25);
                             }
                         }
                         setAlign(1);
@@ -820,7 +844,7 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                         e.printStackTrace();
                     }
                 }
-                setFontSize(128);
+                setFontSize(40);
                 try {
                     if ((boolean) jsonObject.get("is_courtesy") == false) {
                         addTextLine(((String) jsonObject.get("production_total")).toUpperCase());
@@ -828,34 +852,35 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                         addTextLine("CORTESIA");
                     }
                     setBold(false);
-                    setLineSpacing(60);
-                    setFontSize(60);
+                    setLineSpacing(12);
+                    setFontSize(30);
                     addTextLine("_________________________________");
                     setBold(true);
                     addTextLine("SENHA");
-                    setFontSize(128);
+                    setFontSize(40);
                     addTextLine(((String) jsonObject.get("production_password")).toUpperCase());
-                    setFontSize(60);
+                    setFontSize(30);
                     setBold(false);
                     addTextLine("_________________________________");
-                    setFontSize(60);
+                    setFontSize(30);
                     setBold(false);
-                    setLineSpacing(80);
+                    setLineSpacing(30);
                     if (!jsonObject.isNull("delivery_place_name") && !jsonObject.isNull("delivery_place_type")) {
                         addTextLine(((String) jsonObject.get("delivery_place_type")).toUpperCase());
                         addTextLine(((String) jsonObject.get("delivery_place_name")).toUpperCase());
                     }
                     setBold(true);
+                    setFontSize(20);
                     addTextLine(((String) jsonObject.get("operator_name") + " " + "-" + " " + (String) jsonObject.get("serial")).toUpperCase());
-                    setLineSpacing(25);
+                    setLineSpacing(12);
                     addTextLine(((String) jsonObject.get("sale_date")).toUpperCase());
-                    setLineSpacing(60);
-                    setFontSize(30);
+                    setLineSpacing(12);
+                    setFontSize(15);
                     setBold(false);
                     addTextLine("_______________________________________________");
-                    setFontSize(60);
+                    setFontSize(25);
                     addTextLine("RECORTE AQUI");
-                    setFontSize(30);
+                    setFontSize(15);
                     addTextLine("_______________________________________________");
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -889,10 +914,10 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
         final JSONArray products = jsonObject.getJSONArray("products");
 
         final Bitmap image = !jsonObject.isNull("logo_path") ? BitmapFactory.decodeFile((String) jsonObject.get("logo_path")) : null;
-        final Bitmap imageLogo = image != null ? Bitmap.createScaledBitmap(image, 1000, 400, false) : null;
+        final Bitmap imageLogo = image != null ? Bitmap.createScaledBitmap(image, 350, 150, false) : null;
 
         final Bitmap imageQrCode = BitmapFactory.decodeFile((String) jsonObject.get("qr_code_path"));
-        final Bitmap imageQr = Bitmap.createScaledBitmap(imageQrCode, 600, 600, false);
+        final Bitmap imageQr = imageQrCode != null ? Bitmap.createScaledBitmap(imageQrCode, 250, 250, false) : null;
 
         Runnable runnableTask = new Runnable() {
             @TargetApi(Build.VERSION_CODES.O)
@@ -905,30 +930,30 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                     try {
                         o = products.getJSONObject(i);
                         setBold(true);
-                        setFontSize(128);
+                        setFontSize(40);
                         setAlign(1);
                         addImage(imageLogo);
                         addTextLine(((String) o.get("name")).toUpperCase());
                         if (!o.isNull("second_name")) {
-                            addTextLine(((String) o.get("second_name")).toUpperCase());
+                            addTextLine(" " + ((String) o.get("second_name")).toUpperCase());
                         }
                         if (o.getJSONArray("additional").length() > 0) {
                             setBold(true);
-                            setFontSize(50);
-                            setLineSpacing(50);
+                            setFontSize(25);
+                            setLineSpacing(12);
                             addTextLine("ADICIONAIS");
                             JSONObject x = null;
 
                             for(int a = 0; a < o.getJSONArray("additional").length(); a++) {
                                 x = o.getJSONArray("additional").getJSONObject(a);
-                                setLineSpacing(25);
+                                setLineSpacing(12);
                                 addTextLine(+(Integer) x.get("quantity") + "    " + ((String) x.get("name")).toUpperCase() + "   " +   ((String) x.get("value")).toUpperCase());
-                                setFontSize(30);
+                                setFontSize(15);
                                 addTextLine("__________________________________________________________");
-                                setFontSize(50);
+                                setFontSize(25);
                             }
                         }
-                        setFontSize(128);
+                        setFontSize(45);
                         if ((boolean) jsonObject.get("is_courtesy") == false) {
                             addTextLine(((String) o.get("final_value")).toUpperCase());
                         } else {
@@ -940,43 +965,55 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                         }
                         if ((boolean) o.get("is_reprint") == true) {
                             setBold(true);
-                            setLineSpacing(50);
+                            setLineSpacing(12);
                             addTextLine("REIMPRESSÃO");
                         }
-                        setLineSpacing(50);
+                        setLineSpacing(12);
                         setBold(false);
-                        setFontSize(60);
+                        setFontSize(20);
                         addTextLine(((String) jsonObject.get("event_name")).toUpperCase());
-                        setLineSpacing(25);
+                        setLineSpacing(12);
                         addTextLine(((String) jsonObject.get("event_sector_name")).toUpperCase());
                         if (!jsonObject.isNull("delivery_place_name") && !jsonObject.isNull("delivery_place_type")) {
                             addTextLine(((String) jsonObject.get("delivery_place_type")).toUpperCase());
                             addTextLine(((String) jsonObject.get("delivery_place_name")).toUpperCase());
                         }
-                        setLineSpacing(80);
+                        setLineSpacing(30);
+
+                        if ((boolean) o.get("is_reprint") == true) {
+                            if (!jsonObject.isNull("authorizing_user_name")) {
+                                setBold(true);
+                                setLineSpacing(30);
+                                addTextLine("AUTORIZADO POR:");
+                                setLineSpacing(12);
+                                addTextLine(((String) jsonObject.get("authorizing_user_name")).toUpperCase());
+                            }
+                        }
+
                         if ((boolean) jsonObject.get("is_waiter_sale") == true) {
                             setBold(true);
-                            setLineSpacing(80);
+                            setLineSpacing(30);
                             addTextLine("GARÇOM");
-                            setLineSpacing(25);
+                            setLineSpacing(12);
                             addTextLine(((String) jsonObject.get("waiter_name")).toUpperCase());
                         }
                         setBold(false);
-                        setLineSpacing(80);
+                        setLineSpacing(30);
                         addTextLine(returnNumberFi(products.length(), i + 1));
                         setBold(true);
+                        setFontSize(20);
                         addTextLine(((String) jsonObject.get("operator_name") + " " + "-" + " " + (String) jsonObject.get("serial")).toUpperCase());
-                        setLineSpacing(25);
+                        setLineSpacing(12);
                         addTextLine(((String) jsonObject.get("sale_date")).toUpperCase());
-                        setLineSpacing(40);
-                        setFontSize(30);
+                        setLineSpacing(15);
+                        setFontSize(15);
                         setBold(false);
                         addTextLine("__________________________________________________________");
-                        setFontSize(60);
+                        setFontSize(25);
                         addTextLine("RECORTE AQUI");
-                        setFontSize(30);
+                        setFontSize(15);
                         addTextLine("__________________________________________________________");
-                        setLineSpacing(50);
+                        setLineSpacing(15);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -1058,6 +1095,11 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
                     map.putString("message", transactionResult.getMessage());
                     map.putString("transactionCode", transactionResult.getTransactionCode());
                     map.putString("transactionId", transactionResult.getTransactionId());
+                    map.putString("extendedHolderName", transactionResult.getExtendedHolderName());
+                    map.putString("holder", transactionResult.getHolder());
+                    map.putString("holderName", transactionResult.getHolderName());
+                    map.putString("cardBrand", transactionResult.getCardBrand());
+                    map.putString("label", transactionResult.getLabel());
                     promise.resolve(map);
                     executor.isTerminated();
                     System.gc();
@@ -1081,12 +1123,26 @@ public class PlugPagServiceModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void reversePayment(final String code, final String id, final Promise promise) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        final ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        plugPag.setEventListener(new PlugPagEventListener() {
+            @Override
+            public void onEvent(final PlugPagEventData plugPagEventData) {
+                messageCard = plugPagEventData.getCustomMessage();
+                int code = plugPagEventData.getEventCode();
+
+                if (plugPagEventData.getEventCode() == PlugPagEventData.EVENT_CODE_DIGIT_PASSWORD || plugPagEventData.getEventCode() == PlugPagEventData.EVENT_CODE_NO_PASSWORD) {
+                    //do nothing
+                } else {
+                    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("eventPayments", messageCard);
+                }
+            }
+        });
 
         Runnable runnableTask = new Runnable() {
             @Override
             public void run() {
-                PlugPagTransactionResult transactionResult = plugPag.voidPayment(new PlugPagVoidData(code, id, true));
+               PlugPagTransactionResult transactionResult = plugPag.voidPayment(new PlugPagVoidData(code, id, true));
                 final WritableMap map = Arguments.createMap();
                 map.putInt("retCode", transactionResult.getResult());
                 map.putString("message", transactionResult.getMessage());
